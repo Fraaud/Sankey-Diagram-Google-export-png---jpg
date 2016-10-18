@@ -1,0 +1,116 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="http://files.codepedia.info/uploads/iScripts/html2canvas.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+ //include new google charts library
+      google.charts.load('current', {'packages':['sankey']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+    data.addRows([
+          [ 'A', 'X', 5 ],
+          [ 'A', 'Y', 7 ],
+          [ 'A', 'Z', 6 ],
+          [ 'B', 'X', 2 ],
+          [ 'B', 'Y', 9 ],
+          [ 'B', 'Z', 4 ]
+        ]);
+
+        // Sets chart options.
+        var options = {
+          width: 600,
+        };
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+        chart.draw(data, options);
+      }
+	  
+	  
+	 
+	  //print code
+
+   $("#btnPrint").live("click", function () {
+            var divContents = $("#sankey_basic").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title>Sibelco</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    //end   
+
+	
+	//image code
+  
+$(function() { 	
+    $("#salvapng").click(function() { 
+	var element = $("#html-content-holder"); // global variable
+var getCanvas; // global variable
+            html2canvas(element, {
+			onrendered: function (canvas) {
+                        getCanvas = canvas;
+                var imgageData = getCanvas.toDataURL("image/png");
+        var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+        $("<a>", {href:newData, download:"sankey1.png",on:{click:function(){$(this).remove()}}})
+        .appendTo("body")[0].click()
+            }
+        });
+    });
+}); 
+//sviluppo :)			 
+                // Convert and download as image 
+//                Canvas2Image.saveAsPNG(canvas); 
+//                $("#img-out").append(canvas);
+                // Clean up 
+//                document.body.removeChild(canvas);
+//            }
+//        });
+//    });
+//}); 
+//fine sviluppo
+
+$(function() { 	
+    $("#salvajpg").click(function() { 
+	var element = $("#html-content-holder"); // global variable
+var getCanvas; // global variable
+            html2canvas(element, {
+			onrendered: function (canvas) {
+                getCanvas = canvas;
+                var imgageData = getCanvas.toDataURL("image/jpg");
+        var newData = imgageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+        $("<a>", {href:newData, download:"sankey2.jpg",on:{click:function(){$(this).remove()}}})
+        .appendTo("body")[0].click()
+            }
+        });
+    });
+}); 
+</script>
+
+</head>
+<body>
+<div id="html-content-holder" style=" width: 900; height: 400";
+        padding-left: 25px; padding-top: 10px;">
+		<h1>Sankey Diagram</h1>
+		 <div id="sankey_basic" style="width: 900; height: 300;" ></div>
+</div>
+	&nbsp;
+	<input type="button" id="salvapng" value="Save PNG image"/>
+	&nbsp;
+	<input type="button" id="salvajpg" value="Save JPG image"/>
+	&nbsp;	
+	 <input type="button" value="Print image" id="btnPrint" />
+	 &nbsp;
+    <br/>
+</body>
+</html>
