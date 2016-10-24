@@ -2,7 +2,7 @@
 <head>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="http://files.codepedia.info/uploads/iScripts/html2canvas.js"></script>
+<script src="https://github.com/niklasvh/html2canvas/releases/download/0.5.0-alpha1/html2canvas.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
@@ -53,48 +53,35 @@
 	
 	//image code
   
-$(function() { 	
-    $("#salvapng").click(function() { 
-	var element = $("#html-content-holder"); // global variable
-var getCanvas; // global variable
-            html2canvas(element, {
-			onrendered: function (canvas) {
-                        getCanvas = canvas;
-                var imgageData = getCanvas.toDataURL("image/png");
+$(function() {    
+$("#salvapng").click(function() { 
+var element = $("#html-content-holder");          
+html2canvas(element, {
+    letterRendering: true,
+}).then(function(canvas){
+                var imgageData = canvas.toDataURL("image/png");
         var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-        $("<a>", {href:newData, download:"sankey1.png",on:{click:function(){$(this).remove()}}})
+        $("<a>", {href:newData, download:"Proof1.png",on:{click:function(){$(this).remove()}}})
         .appendTo("body")[0].click()
-            }
-        });
-    });
+ })
 }); 
-//sviluppo :)			 
-                // Convert and download as image 
-//                Canvas2Image.saveAsPNG(canvas); 
-//                $("#img-out").append(canvas);
-                // Clean up 
-//                document.body.removeChild(canvas);
-//            }
-//        });
-//    });
-//}); 
-//fine sviluppo
+});
+  
+$(function() {    
+$("#salvajpg").click(function() { 
+var element = $("#html-content-holder");         
+html2canvas(element, {
+    letterRendering: true,
 
-$(function() { 	
-    $("#salvajpg").click(function() { 
-	var element = $("#html-content-holder"); // global variable
-var getCanvas; // global variable
-            html2canvas(element, {
-			onrendered: function (canvas) {
-                getCanvas = canvas;
-                var imgageData = getCanvas.toDataURL("image/jpg");
+}).then(function(canvas){
+                var imgageData = canvas.toDataURL("image/jpg");
         var newData = imgageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
-        $("<a>", {href:newData, download:"sankey2.jpg",on:{click:function(){$(this).remove()}}})
+        $("<a>", {href:newData, download:"Proof1.jpg",on:{click:function(){$(this).remove()}}})
         .appendTo("body")[0].click()
-            }
-        });
-    });
+ })
 }); 
+}); 
+	
 </script>
 
 </head>
